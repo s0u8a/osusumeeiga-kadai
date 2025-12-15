@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>おすすめ映画</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .movie-list {
+            list-style: none;
+            padding: 0;
+        }
+        .movie-item {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+        }
+        .movie-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .movie-id {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #5a6268;
+        }
+        .no-results {
+            padding: 20px;
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <h1>おすすめ映画 ({{ movies|length }}件)</h1>
+    
+    {% if movies is not none and movies|length > 0 %}
+        <ul class="movie-list">
+            {% for index, row in movies.iterrows() %}
+            <li class="movie-item">
+                <div class="movie-title">{{ row['movie_title'] }}</div>
+                <div class="movie-id">Movie ID: {{ row['movie_id'] }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="no-results">
+            <p>おすすめ映画が見つかりませんでした。</p>
+            <p>別の映画を選択してみてください。</p>
+        </div>
+    {% endif %}
+    
+    <a href="/" class="back-link">戻る</a>
+</body>
+</html>

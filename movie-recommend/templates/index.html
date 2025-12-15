@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>映画推薦システム</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .movie-item {
+            margin: 10px 0;
+            padding: 5px;
+        }
+        .movie-item:hover {
+            background-color: #f0f0f0;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>好きな映画を3つ以上選択</h1>
+    <form action="/recommend" method="post">
+        {% if movies is not none and movies|length > 0 %}
+            {% for index, row in movies.iterrows() %}
+            <div class="movie-item">
+                <input type="checkbox" name="movies" value="{{ row['movie_id'] }}" id="movie_{{ row['movie_id'] }}">
+                <label for="movie_{{ row['movie_id'] }}">{{ row['movie_title'] }}</label>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>映画データが読み込めませんでした。</p>
+        {% endif %}
+        <button type="submit">おすすめを見る</button>
+    </form>
+</body>
+</html>
